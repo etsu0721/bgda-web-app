@@ -1,9 +1,14 @@
 ![README header image](images/README-header.png)
 
-![GitHub last commit](https://img.shields.io/github/last-commit/etsu0721/bgda-web-app)
+<!-- Markdown must be separated from opening & closing <div> tags for proper rendering -->
+<div align="center">
 
-Full-featured web app with Flask.
+<a href="">![GitHub last commit](https://img.shields.io/github/last-commit/etsu0721/bgda-web-app)</a>
 
-### Social media
-- [BGDA Twitter](https://twitter.com/B_G_D_A)
-- [BGDA website (old)](https://www.bluegrassdarts.com)
+</div>
+
+Full-featured web app with Flask: [bgda.com]()
+
+## Key Features
+
+- User management system
