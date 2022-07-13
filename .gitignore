@@ -1,3 +1,4 @@
 *mwb*
-__pycache__
+app/__pycache__/
 social-media-links.txt
+venv/
