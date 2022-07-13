@@ -1,4 +1,4 @@
-![README header image](README-header.png)
+![README header image](images/README-header.png)
 
 ![GitHub last commit](https://img.shields.io/github/last-commit/etsu0721/bgda-web-app)
 
