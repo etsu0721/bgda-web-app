@@ -1,4 +1,10 @@
-![README header image](images/README-header.png)
+<!-- 
+790 x 150
+Courier, size 50 font
+Background color: #2E2E2E
+Text color: #5882FA
+-->
+![README header image](app/images/README-header.png)
 
 <!-- Markdown must be separated from opening & closing <div> tags for proper rendering -->
 <div align="center">
