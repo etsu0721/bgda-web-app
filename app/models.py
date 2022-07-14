@@ -1,6 +1,19 @@
-from app import db
+from app import db, login_manager
+from flask_login import UserMixin
 
-class Player(db.Model):
+@login_manager.user_loader
+def get_player(player_id):
+    """Given an ID, get player
+
+    Args:
+        player_id (int): player unique identifier
+
+    Returns:
+        Player: Player object from database where ID matched
+    """
+    return Player.query.get(int(player_id))
+
+class Player(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     first_name = db.Column(db.String(20), nullable=False)
     last_name = db.Column(db.String(20), nullable=False)
