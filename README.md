@@ -4,7 +4,7 @@ Courier, size 50 font
 Background color: #2E2E2E
 Text color: #5882FA
 -->
-![README header banner](app/images/README-banner.png)
+![README header banner](app/static/images/README-banner.png)
 
 <!-- 
 Markdown must be separated from opening & closing <div> tags for proper rendering
