@@ -1,0 +1,59 @@
+{% extends "layout.html" %}
+{% block content %}
+    <div class="content-section">
+        <!-- Post form to current route -->
+        <form method="POST", action="">
+            <!-- Protect form with cross-site request forgery (CSRF) token -->
+            {{ form.hidden_tag() }}
+            <!--  Add form fields -->
+            <fieldset class="form-group">
+                <legend class="border-bottom"> New Team </legend>
+                <div class="form-group">
+                    {{ form.team_name.label(class="form-control-label") }}
+                    <!-- If any errors, display them -->
+                    {% if form.team_name.errors %}
+                        {{ form.team_name(class="form-control form-control is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.team_name.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.team_name(class="form-control form-control") }}
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                    {{ form.team_captain.label(class="form-control-label") }}
+                    <!-- If any errors, display them -->
+                    {% if form.team_captain.errors %}
+                        {{ form.team_captain(class="form-control form-control is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.team_captain.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.team_captain(class="form-control form-control") }}
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                    {{ form.home_bar.label(class="form-control-label") }}
+                    <!-- If any errors, display them -->
+                    {% if form.home_bar.errors %}
+                        {{ form.home_bar(class="form-control form-control is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.home_bar.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.home_bar(class="form-control form-control") }}
+                    {% endif %}
+                </div>
+            </fieldset>
+            <div class="form-group">
+                {{ form.submit(class="btn btn-outline-info") }}
+            </div>
+        </form>  
+    </div>
+{% endblock content %} 

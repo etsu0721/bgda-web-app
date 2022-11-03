@@ -94,4 +94,12 @@ class UpdateAccountForm(FlaskForm):
             player = Player.query.filter_by(email=email.data).first()
             if player != None:
                 raise ValidationError('An account with that email already exists. Try logging in with that email or registering a new email.')
- 
+
+class TeamForm(FlaskForm):
+    team_name = StringField('Team Name', validators=[DataRequired(), Length(max=50, message='Team name must be less than 50 characters')])
+    
+    # Team captain and Home bar fields should be look-ups from their respective tables
+    team_captain = StringField('Team Captain', validators=[DataRequired()])
+    home_bar = StringField('Home Bar', validators=[DataRequired()])
+
+    submit = SubmitField('Create')
