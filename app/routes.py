@@ -102,21 +102,14 @@ def account():
 @app.route('/team/add', methods=['GET', 'POST'])
 @login_required
 def add_team():
-    # Get active players for captain choices
-    active_players = db.session.query(Player).all()
-    captain_choices = [(p.id, ' '.join([p.first_name, p.last_name])) for p in active_players]
-    
-    # Get active bars for home bar choices
-    active_bars = db.session.query(Bar).all()
-    bar_choices = [(b.id, ' - '.join([b.name, b.address])) for b in active_bars]
-    
-    form = TeamForm()
-
-    # Set SelectField choices in TeamForm instance
-    form.team_captain.choices = captain_choices
-    form.home_bar.choices = bar_choices
-    
+    form = TeamForm(home_bar=-1)
     if form.validate_on_submit():
+        team = Team(
+            name=form.team_name.data,
+            home_bar_id=form.home_bar.data
+        )
+        db.session.add(team)
+        db.session.commit()
         flash('{} has been added.'.format(form.team_name.data), 'success')
         return redirect(url_for('home'))
     return render_template('add_team.html', title='Add Team', form=form)
@@ -128,7 +121,8 @@ def add_bar():
     if form.validate_on_submit():
         bar = Bar(
             name=form.bar_name.data,
-            address=form.bar_address.data
+            address=form.bar_address.data,
+            phone=form.bar_phone.data
         )
         db.session.add(bar)
         db.session.commit()

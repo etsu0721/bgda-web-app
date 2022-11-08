@@ -2,8 +2,8 @@ from flask_wtf import FlaskForm
 from flask_wtf.file import FileField, FileAllowed
 from flask_login import current_user
 from wtforms import StringField, PasswordField, SubmitField, BooleanField, SelectField
-from wtforms.validators import InputRequired, Length, Email, EqualTo, ValidationError, Regexp
-from app.models import Player
+from wtforms.validators import InputRequired, Length, Email, EqualTo, ValidationError, Regexp, NoneOf
+from app.models import Player, Bar
 
 class RegistrationForm(FlaskForm):
     first_name = StringField(
@@ -103,6 +103,11 @@ class BarForm(FlaskForm):
 
 class TeamForm(FlaskForm):
     team_name = StringField('Name', validators=[InputRequired(), Length(max=50, message='Team name must be less than 50 characters')])
-    team_captain = SelectField('Captain', validators=[InputRequired()])
-    home_bar = SelectField('Home Bar', validators=[InputRequired()])
+    
+    # Get and set Bar choices
+    active_bars = Bar.query.filter_by(is_active=True).order_by(Bar.name).all()
+    bar_choices = [(b.id, ' - '.join([b.name, b.address])) for b in active_bars]
+    bar_choices.append((-1, 'None')) # Default bar selection
+    home_bar = SelectField('Home Bar', validators=[InputRequired(), NoneOf(['-1'], message='Select a bar.')], choices=bar_choices)
+    
     submit = SubmitField('Add')
