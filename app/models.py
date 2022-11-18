@@ -25,7 +25,7 @@ class Player(db.Model, UserMixin):
     is_active = db.Column(db.Boolean, nullable=False, default=True)
     date_created = db.Column(db.DateTime, nullable=False, default=dt.utcnow)
     
-    def __repr__(self):
+    def __repr__(self) -> str:
         return 'Player({id}, {fn}, {nn}, {ln}, {email}, Activity Status: {status}, Created: {created})'.format(
             id=self.id,
             fn=self.first_name,
@@ -45,7 +45,7 @@ class Bar(db.Model):
     date_created = db.Column(db.DateTime, nullable=False, default=dt.utcnow)
     teams = db.relationship('Team', backref='bar', lazy=True)
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         return 'Bar({id}, {name}, {address}, {phone}, Activity Status: {status}, Created: {created}, {teams})'.format(
             id=self.id,
             name=self.name,
@@ -63,11 +63,39 @@ class Team(db.Model):
     date_created = db.Column(db.DateTime, nullable=False, default=dt.utcnow)
     home_bar_id = db.Column(db.Integer, db.ForeignKey('bar.id'), nullable=False)
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         return 'Team({id}, {name}, Activity Status: {status}, Created: {created}, Home Bar ID: {home_bar_id})'.format(
             id=self.id,
             name=self.name,
             status=self.is_active,
             created=self.date_created,
             home_bar_id=self.home_bar_id
+        )
+
+class SeasonName(db.Model):
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    name = db.Column(db.String(20), unique=True, nullable=False)
+    seasons = db.relationship('Season', backref='seasonName', lazy=True)
+    date_created = db.Column(db.DateTime, nullable=False, default=dt.utcnow)
+
+    def __repr__(self) -> str:
+        return 'SeasonName({id}, {name}, Created: {created}, Seasons: {seasons})'.format(
+            id=self.id,
+            name=self.name,
+            created=self.date_created,
+            seasons=self.seasons,
+        )
+
+class Season(db.Model):
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    season_name_id = db.Column(db.Integer, db.ForeignKey('seasonName.id'), nullable=False)
+    year = db.Column(db.Integer, nullable=False)
+    date_created = db.Column(db.DateTime, nullable=False, default=dt.utcnow)
+
+    def __repr__(self) -> str:
+        return 'Season({id}, {season_name_id}, {year}, Created: {created})'.format(
+            id=self.id,
+            season_name_id=self.season_name_id,
+            year=self.year,
+            created=self.date_created
         )
