@@ -75,8 +75,8 @@ class Team(db.Model):
 class SeasonName(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     name = db.Column(db.String(20), unique=True, nullable=False)
-    seasons = db.relationship('Season', backref='seasonName', lazy=True)
     date_created = db.Column(db.DateTime, nullable=False, default=dt.utcnow)
+    seasons = db.relationship('Season', backref='seasonName', lazy=True)
 
     def __repr__(self) -> str:
         return 'SeasonName({id}, {name}, Created: {created}, Seasons: {seasons})'.format(
@@ -88,9 +88,9 @@ class SeasonName(db.Model):
 
 class Season(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    season_name_id = db.Column(db.Integer, db.ForeignKey('seasonName.id'), nullable=False)
     year = db.Column(db.Integer, nullable=False)
     date_created = db.Column(db.DateTime, nullable=False, default=dt.utcnow)
+    season_name_id = db.Column(db.Integer, db.ForeignKey('seasonName.id'), nullable=False)
 
     def __repr__(self) -> str:
         return 'Season({id}, {season_name_id}, {year}, Created: {created})'.format(
